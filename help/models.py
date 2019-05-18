@@ -15,7 +15,7 @@ class Account(AbstractUser):
 
     def __str__(self):
         return (
-            str(self.last_name) + " " + str(self.first_name) + " " + str(self.email)
+            str(self.last_name) + " " + str(self.username) + " " + str(self.email)
         )
 
 class Ticket(Model):
@@ -42,7 +42,7 @@ class Ticket(Model):
         (PERFORMED, 'Исполняется'),
         (DONE, 'Исполнено')
     )
-    status = CharField(max_length=50, choices = STATUS, verbose_name='Статус')
+    status = CharField(max_length=50, choices = STATUS, default=QUEUE, verbose_name='Статус')
 
     class Meta:
         verbose_name = "Заявка"
@@ -50,5 +50,6 @@ class Ticket(Model):
 
     def __str__(self):
         return (
-            str(self.published) + " " + str(self.ticket_type) + " " + str(self.status)
+            str(self.published.strftime('%d.%m.%Y %H:%M')) + 
+            " " + str(self.ticket_type) + " " + str(self.status)
         )
