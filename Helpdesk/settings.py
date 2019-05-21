@@ -12,6 +12,7 @@ AUTH_USER_MODEL = 'help.Account'
 
 INSTALLED_APPS = [
     'help',
+    'ckeditor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -74,6 +75,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-ru'
 
+LOGIN_REDIRECT_URL = '/'
+
+LOGOUT_REDIRECT_URL = '/'
+
 TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
@@ -82,12 +87,56 @@ USE_L10N = True
 
 USE_TZ = False
 
-DATE_INPUT_FORMATS = ('%d.%m.%Y',)
+TIME_INPUT_FORMATS = ['%H:%M']
+
+DATE_INPUT_FORMATS = ['%d.%m.%Y']
+
+DATETIME_FORMAT = '%d.%m.%Y %H:%M'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar':[
+            ['Format',
+                'Styles',
+                'FontSize',
+                '-',
+                'Find',
+                '-',
+                'TextColor',
+                '-',
+                'Bold', 
+                'Italic',
+                'Underline',
+                'CodeSnippet',
+                '-',
+                'NumberedList', 
+                'BulletedList',
+                '-',
+                "Indent",
+                "Outdent",
+                '=',
+                'JustifyLeft', 
+                'JustifyCenter', 
+                'JustifyRight', 
+                'JustifyBlock', 
+                '-',
+                'Image', 
+                'Table',
+                'SpecialChar',
+                '-', 
+                'Preview']],
+        'removePlugins': 'stylesheetparser',
+        'extraPlugins': 'codesnippet',
+        'width': 'auto'
+    },
+}
 
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'myfriends', 'static'),)

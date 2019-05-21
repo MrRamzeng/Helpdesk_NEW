@@ -1,5 +1,6 @@
 from django.db.models import Model, CharField, ForeignKey, TextField, EmailField, DateTimeField
 from django.contrib.auth.models import AbstractUser
+from ckeditor_uploader.fields import RichTextUploadingField
 
 class Account(AbstractUser):
     last_name = CharField(max_length=50, verbose_name='Фамилия', unique=True)
@@ -19,30 +20,30 @@ class Account(AbstractUser):
         )
 
 class Ticket(Model):
-    REPAIR = 'Ремонт и замена техники'
-    SOFTWARE_UPDATE = 'Обновление программного обеспечения'
-    HELP = 'Помощь с программным обеспечением'
-    TROUBLESHOOTING = 'Устранение проблем с программным обеспечением'
-    REPLACEMENT = 'Замена периферийных устройств'
-    TICKET_TYPE = (
-        (REPAIR, 'Ремонт и замена техники'),
-        (SOFTWARE_UPDATE, 'Обновление программного обеспечения'),
-        (HELP, 'Помощь с программным обеспечением'),
-        (TROUBLESHOOTING, 'Устранение проблем с программным обеспечением'),
-        (REPLACEMENT, 'Замена периферийных устройств')
+    TODAY = 'Сегодня'
+    WEEK = 'Неделя'
+    MOUNTH = 'Месяц'
+    YEAR = 'Год (на оборудование)'
+    PRIORITY = (
+        (TODAY, 'Сегодня'),
+        (WEEK, 'Неделя'),
+        (MOUNTH, 'Месяц'),
+        (YEAR, 'Год (на оборудование)')
     )
-    ticket_type = CharField(max_length=50, choices = TICKET_TYPE, verbose_name='Тип обращения')
+    priority = CharField(max_length=50, choices = PRIORITY, verbose_name='Приоритет')
     text = TextField(verbose_name='сообщение')
     published = DateTimeField(auto_now_add=True)
-    QUEUE = 'В очереди'
+    REGISTER = 'Зарегистрирована'
     PERFORMED = 'Исполняется'
-    DONE = 'Исполнено'
+    CANCEL = 'Отменена'
+    DONE = 'Исполнена'
     STATUS = (
-        (QUEUE, 'В очереди'),
+        (REGISTER, 'Зарегистрирована'),
         (PERFORMED, 'Исполняется'),
-        (DONE, 'Исполнено')
+        (CANCEL, 'Отменена'),
+        (DONE, 'Исполнена')
     )
-    status = CharField(max_length=50, choices = STATUS, default=QUEUE, verbose_name='Статус')
+    status = CharField(max_length=50, choices = STATUS, default=REGISTER, verbose_name='Статус')
 
     class Meta:
         verbose_name = "Заявка"
@@ -51,5 +52,14 @@ class Ticket(Model):
     def __str__(self):
         return (
             str(self.published.strftime('%d.%m.%Y %H:%M')) + 
-            " " + str(self.ticket_type) + " " + str(self.status)
+            " " + str(self.priority) + " " + str(self.status)
         )
+
+class KnowledgeBase(Model):
+    title = CharField("Заголовок", max_length = 100)
+    solution = RichTextUploadingField("Решение")
+    def __str__(self):
+        return str(self.title)
+    class Meta:
+        verbose_name_plural = "база знаний"
+        verbose_name = "база знаний"
