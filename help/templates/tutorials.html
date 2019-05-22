@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+  <a href="{% url 'tickets' %}" class="breadcrumb">Мои заявки</a>
+  <a href="{% url 'tutorials' %}" class="breadcrumb" style="pointer-events: none; color: #000000">
+    База знаний
+  </a>
+  <ul class="collapsible">
+    {% for tutorial in tutorials %}
+      <li>
+        <div class="collapsible-header">
+          <a href="{% url 'tutorial' tutorial.id %}">{{ tutorial.title }}</a>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock content %}

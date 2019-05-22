@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="row">
+    <div class="col s8">
+      My tickets
+    </div>
+    <div class="col s4">
+      <h5>Tutorials</h5>
+      <ul class="collapsible">
+        {% for tutorial in tutorials %}
+          <li>
+            <div class="collapsible-header">
+              <a href="{% url 'tutorial' tutorial.id %}">{{ tutorial.title }}</a>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock content %}

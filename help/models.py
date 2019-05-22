@@ -55,9 +55,9 @@ class Ticket(Model):
             " " + str(self.priority) + " " + str(self.status)
         )
 
-class KnowledgeBase(Model):
+class Tutorial(Model):
     title = CharField("Заголовок", max_length = 100)
-    solution = RichTextUploadingField("Решение")
+    content = RichTextUploadingField("Решение")
     def __str__(self):
         return str(self.title)
     class Meta:

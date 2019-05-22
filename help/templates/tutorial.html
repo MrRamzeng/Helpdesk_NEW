@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <a href="{% url 'tickets' %}" class="breadcrumb">Мои заявки</a>
+    <a href="{% url 'tutorials' %}" class="breadcrumb">База знаний</a> 
+    <a href="{% url 'tutorial' tutorial.id %}" class="breadcrumb" style="pointer-events: none; color: #000000">
+      {{ tutorial.title }}
+    </a>
+  <h6>{{ tutorial.title }}</h6>
+  {{ tutorial.content|safe }}
+{% endblock content %}

@@ -6,7 +6,7 @@
   <a href="#">3.</a><br>
   <a href="#">4.</a><br>
   <a href="#">.....</a>
-  <form>
+  <form method="POST">
     {% csrf_token %}
     {{form}}
     <input type="submit" value="Log in">
