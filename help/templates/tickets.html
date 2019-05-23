@@ -1,11 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="row">
-    <div class="col s8">
-      My tickets
+    <div class="col s9">
+      <form method="post">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col s8" style="margin-top: 8px;">
+            <div class="input-field">
+              {{ form.cabinet }}
+              <label for="id_cabinet">Кабинет</label>
+            </div>
+          </div>
+          <div class="col s4">
+            <label for="id_priority">Приоритет</label>
+            {{ form.priority }}
+          </div>
+        </div>
+        <div class="input-field">
+          {{ form.text }}
+          <label for="id_text">Сообщение</label>
+        </div>
+        <button type="submit" class="btn waves-effect waves-light">Отправить запрос</button>
+      </form>
     </div>
-    <div class="col s4">
-      <h5>Tutorials</h5>
+    <div class="col s3">
+      <h5>Руководство пользователя</h5>
       <ul class="collapsible">
         {% for tutorial in tutorials %}
           <li>
@@ -14,7 +33,32 @@
             </div>
           </li>
         {% endfor %}
+        {% if counter > 4 %}
+          <li>
+            <div class="collapsible-header">
+              <a href="{% url 'tutorials' %}">Смотреть еще...</a>
+            </div>
+          </li>
+        {% endif %}
       </ul>
     </div>
   </div>
+  <table>
+    <tr>
+      <th>Кабинет</th>
+      <th>Сообщение</th>
+      <th>Приоритет</th>
+      <th>Примерный срок исполнения</th>
+      <th>Статус</th>
+    </tr>
+    {% for ticket in tickets %}
+      <tr id='ticket'>
+        <td>{{ ticket.cabinet }}</td>
+        <td>{{ ticket.text }}</td>
+        <td>{{ ticket.priority }}</td>
+        <td>{{ ticket.completion_date }}</td>
+        <td>{{ ticket.status }}</td>
+      </tr>
+    {% endfor %}
+  </table>
 {% endblock content %}

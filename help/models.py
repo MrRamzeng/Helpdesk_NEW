@@ -1,11 +1,12 @@
-from django.db.models import Model, CharField, ForeignKey, TextField, EmailField, DateTimeField
+from django.db.models import Model, CharField, ForeignKey, TextField, EmailField, DateField, DateTimeField, TimeField
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
 
 class Account(AbstractUser):
+    username = CharField(max_length=50, verbose_name='Логин')
     last_name = CharField(max_length=50, verbose_name='Фамилия', unique=True)
-    username = CharField(max_length=50, verbose_name='Имя')
-    cabinet = CharField(max_length=5, verbose_name='Кабинет')
+    first_name = CharField(max_length=50, verbose_name='Имя')
     email = EmailField(max_length=254, verbose_name='Адрес электронной почты')
     USERNAME_FIELD = 'last_name'
     REQUIRED_FIELDS = ('username', 'email')
@@ -16,23 +17,26 @@ class Account(AbstractUser):
 
     def __str__(self):
         return (
-            str(self.last_name) + " " + str(self.username) + " " + str(self.email)
+            str(self.last_name) + " " + str(self.first_name) + " " + str(self.email)
         )
 
 class Ticket(Model):
-    TODAY = 'Сегодня'
+    client = ForeignKey(Account, on_delete=models.CASCADE, null=True, verbose_name='Клиент')
+    cabinet = CharField(max_length=50, verbose_name='Кабинет')
+    DAY = 'День'
     WEEK = 'Неделя'
     MOUNTH = 'Месяц'
     YEAR = 'Год (на оборудование)'
     PRIORITY = (
-        (TODAY, 'Сегодня'),
+        (DAY, 'День'),
         (WEEK, 'Неделя'),
         (MOUNTH, 'Месяц'),
         (YEAR, 'Год (на оборудование)')
     )
     priority = CharField(max_length=50, choices = PRIORITY, verbose_name='Приоритет')
     text = TextField(verbose_name='сообщение')
-    published = DateTimeField(auto_now_add=True)
+    published_date = DateField()
+    published_time = TimeField()
     REGISTER = 'Зарегистрирована'
     PERFORMED = 'Исполняется'
     CANCEL = 'Отменена'
@@ -43,6 +47,7 @@ class Ticket(Model):
         (CANCEL, 'Отменена'),
         (DONE, 'Исполнена')
     )
+    completion_date = DateTimeField(verbose_name='Срок исполнения заявки')
     status = CharField(max_length=50, choices = STATUS, default=REGISTER, verbose_name='Статус')
 
     class Meta:
@@ -51,7 +56,8 @@ class Ticket(Model):
 
     def __str__(self):
         return (
-            str(self.published.strftime('%d.%m.%Y %H:%M')) + 
+            str(self.published_date.strftime('%d.%m.%Y')) +
+            " " + str(self.published_time.strftime('%H:%M')) +
             " " + str(self.priority) + " " + str(self.status)
         )
 

@@ -5243,8 +5243,8 @@ small {
 
 .btn, .btn-large, .btn-small {
   text-decoration: none;
-  color: #fff;
-  background-color: #26a69a;
+  color: #555;
+  background-color: #e3e3e3;
   text-align: center;
   letter-spacing: .5px;
   -webkit-transition: background-color .2s ease-out;
@@ -5578,7 +5578,6 @@ button.btn-floating {
 
 .dropdown-content li > a, .dropdown-content li > span {
   font-size: 16px;
-  color: #26a69a;
   display: block;
   line-height: 22px;
   padding: 14px 16px;
