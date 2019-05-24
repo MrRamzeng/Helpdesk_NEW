@@ -35,8 +35,8 @@ class Ticket(Model):
     )
     priority = CharField(max_length=50, choices = PRIORITY, verbose_name='Приоритет')
     text = TextField(verbose_name='сообщение')
-    published_date = DateField(auto_now_add=True)
-    published_time = TimeField(auto_now_add=True)
+    published_date = DateField(auto_now_add=True, verbose_name='Дата публикации')
+    published_time = TimeField(auto_now_add=True, verbose_name='Время публикации')
     REGISTER = 'Зарегистрирована'
     PERFORMED = 'Исполняется'
     CANCEL = 'Отменена'
@@ -69,3 +69,8 @@ class Manual(Model):
     class Meta:
         verbose_name = "Руководство пользователя"
         verbose_name_plural = "Руководства пользователя"
+
+def user_full_name(self):
+    return '%s %s' % (self.last_name, self.first_name)
+
+Account.__str__ = user_full_name
