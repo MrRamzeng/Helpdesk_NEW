@@ -35,8 +35,8 @@ class Ticket(Model):
     )
     priority = CharField(max_length=50, choices = PRIORITY, verbose_name='Приоритет')
     text = TextField(verbose_name='сообщение')
-    published_date = DateField()
-    published_time = TimeField()
+    published_date = DateField(auto_now_add=True)
+    published_time = TimeField(auto_now_add=True)
     REGISTER = 'Зарегистрирована'
     PERFORMED = 'Исполняется'
     CANCEL = 'Отменена'
@@ -47,7 +47,7 @@ class Ticket(Model):
         (CANCEL, 'Отменена'),
         (DONE, 'Исполнена')
     )
-    completion_date = DateTimeField(verbose_name='Срок исполнения заявки')
+    completion_date = DateTimeField(verbose_name='Срок исполнения заявки', null=True)
     status = CharField(max_length=50, choices = STATUS, default=REGISTER, verbose_name='Статус')
 
     class Meta:
@@ -61,11 +61,11 @@ class Ticket(Model):
             " " + str(self.priority) + " " + str(self.status)
         )
 
-class Tutorial(Model):
+class Manual(Model):
     title = CharField("Заголовок", max_length = 100)
     content = RichTextUploadingField("Решение")
     def __str__(self):
         return str(self.title)
     class Meta:
-        verbose_name_plural = "база знаний"
-        verbose_name = "база знаний"
+        verbose_name = "Руководство пользователя"
+        verbose_name_plural = "Руководства пользователя"

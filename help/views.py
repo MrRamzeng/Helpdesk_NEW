@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from help.models import Tutorial, Ticket
+from help.models import Ticket, Manual
 from help.forms import CreateTicket
 from datetime import datetime, timedelta, date
 
@@ -9,10 +9,10 @@ def ticket(request):
     if request.user.is_staff:
         return redirect('/admin/')
     else:
-        tutorials = Tutorial.objects.all()[:4]
+        manuals = Manual.objects.all()[:4]
         counter = None
-        if Tutorial.objects.count() > 4:
-            counter = Tutorial.objects.count()
+        if Manual.objects.count() > 4:
+            counter = Manual.objects.count()
         if request.method == 'POST':
             form = CreateTicket(request.POST)
             if form.is_valid():
@@ -38,15 +38,15 @@ def ticket(request):
         ).delete()
         return render(
             request, 'tickets.html', 
-            {'tutorials': tutorials, 'counter': counter, 'form': form, 'tickets': tickets}
+            {'manuals': manuals, 'counter': counter, 'form': form, 'tickets': tickets}
         )
     
-def tutorials(request):
-    tutorials = Tutorial.objects.all()
-    return render(request, 'tutorials.html', {'tutorials': tutorials})
+def manuals(request):
+    manuals = Manual.objects.all()
+    return render(request, 'manuals.html', {'manuals': manuals})
 
-def tutorial(request, tutorial_id):
-    tutorial = Tutorial.objects.get(id=tutorial_id)
-    return render(request, 'tutorial.html', {'tutorial': tutorial})
+def manual(request, manual_id):
+    manual = Manual.objects.get(id=manual_id)
+    return render(request, 'manual.html', {'manual': manual})
 
 

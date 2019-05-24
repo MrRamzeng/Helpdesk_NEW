@@ -2747,7 +2747,7 @@ video.responsive-video {
 }
 
 .pagination li.active {
-  background-color: #ee6e73;
+  background-color: #f5f5f5;
 }
 
 .pagination li.disabled a {
@@ -2938,7 +2938,7 @@ ul.staggered-list li {
 .page-footer {
   padding-top: 20px;
   color: #fff;
-  background-color: #ee6e73;
+  background-color: #f5f5f5;
 }
 
 .page-footer .footer-copyright {
@@ -3004,9 +3004,18 @@ tr {
 td, th {
   padding: 15px 5px;
   display: table-cell;
+  color: #555;
   text-align: left;
   vertical-align: middle;
   border-radius: 2px;
+}
+
+.collapsible-header a {
+  color: #555;
+}
+
+th {
+  background-color: #f5f5f5;
 }
 
 @media only screen and (max-width: 992px) {
@@ -4263,7 +4272,7 @@ table span.badge {
 
 nav {
   color: #fff;
-  background-color: #ee6e73;
+  background-color: #f5f5f5;
   width: 100%;
   height: 56px;
   line-height: 56px;
@@ -4284,7 +4293,7 @@ nav.nav-extended .nav-content {
 }
 
 nav a {
-  color: #fff;
+  color: #555;
 }
 
 nav i,
@@ -4292,8 +4301,8 @@ nav [class^="mdi-"], nav [class*="mdi-"],
 nav i.material-icons {
   display: block;
   font-size: 24px;
-  height: 56px;
-  line-height: 56px;
+  height: 50px;
+  line-height: 50px;
 }
 
 nav .nav-wrapper {
@@ -4311,20 +4320,20 @@ nav .sidenav-trigger {
   float: left;
   position: relative;
   z-index: 1;
-  height: 56px;
+  height: 50px;
   margin: 0 18px;
 }
 
 nav .sidenav-trigger i {
-  height: 56px;
-  line-height: 56px;
+  height: 50px;
+  line-height: 50px;
 }
 
 nav .brand-logo {
   position: absolute;
-  color: #fff;
+  color: #555;
   display: inline-block;
-  font-size: 2.1rem;
+  font-size: 1.5rem;
   padding: 0;
 }
 
@@ -4391,7 +4400,7 @@ nav ul a {
   -webkit-transition: background-color .3s;
   transition: background-color .3s;
   font-size: 1rem;
-  color: #fff;
+  color: #555;
   display: block;
   padding: 0 15px;
   cursor: pointer;
@@ -4465,14 +4474,15 @@ nav .input-field label.active i {
 
 @media only screen and (min-width: 601px) {
   nav.nav-extended .nav-wrapper {
-    min-height: 64px;
+    min-height: 50px;
   }
   nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
-    height: 64px;
-    line-height: 64px;
+    height: 50px;
+    line-height: 50px;
+    background-color: #f5f5f5;
   }
   .navbar-fixed {
-    height: 64px;
+    height: 50px;
   }
 }
 
@@ -5086,7 +5096,7 @@ small {
 
 .tabs .tab a:hover, .tabs .tab a.active {
   background-color: transparent;
-  color: #ee6e73;
+  
 }
 
 .tabs .tab.disabled a,
@@ -5123,9 +5133,8 @@ small {
 
 .material-tooltip {
   padding: 10px 8px;
-  font-size: 1rem;
+  font-size: 12px;
   z-index: 2000;
-  background-color: transparent;
   border-radius: 2px;
   color: #fff;
   min-height: 36px;
@@ -5139,7 +5148,7 @@ small {
   top: 0;
   pointer-events: none;
   visibility: hidden;
-  background-color: #323232;
+  background-color: rgba(85, 85, 85, 0.95);
 }
 
 .backdrop {
@@ -5238,13 +5247,14 @@ small {
 
 .btn:focus, .btn-large:focus, .btn-small:focus,
 .btn-floating:focus {
-  background-color: #1d7d74;
+  background-color: #555;
+  color: #f5f5f5;
 }
 
 .btn, .btn-large, .btn-small {
   text-decoration: none;
   color: #555;
-  background-color: #e3e3e3;
+  background-color: #f5f5f5;
   text-align: center;
   letter-spacing: .5px;
   -webkit-transition: background-color .2s ease-out;
@@ -5253,7 +5263,7 @@ small {
 }
 
 .btn:hover, .btn-large:hover, .btn-small:hover {
-  background-color: #2bbbad;
+  background-color: #f5f5f5;
 }
 
 .btn-floating {
@@ -5658,7 +5668,7 @@ body.keyboard-focused .dropdown-content li:focus {
 }
 
 .waves-effect.waves-light .waves-ripple {
-  background-color: rgba(255, 255, 255, 0.45);
+  background-color: rgba(85, 85, 85, 0.45);
 }
 
 .waves-effect.waves-red .waves-ripple {
@@ -7511,13 +7521,13 @@ input[type=range]::-ms-thumb {
 .table-of-contents a:hover {
   color: #a8a8a8;
   padding-left: 15px;
-  border-left: 1px solid #ee6e73;
+  border-left: 1px solid;
 }
 
 .table-of-contents a.active {
   font-weight: 500;
   padding-left: 14px;
-  border-left: 2px solid #ee6e73;
+  border-left: 2px solid;
 }
 
 .sidenav {
@@ -7719,7 +7729,7 @@ input[type=range]::-ms-thumb {
 
 .sidenav .collapsible-body > ul:not(.collapsible) > li.active,
 .sidenav.sidenav-fixed .collapsible-body > ul:not(.collapsible) > li.active {
-  background-color: #ee6e73;
+  background-color: #f5f5f5;
 }
 
 .sidenav .collapsible-body > ul:not(.collapsible) > li.active a,
@@ -8496,7 +8506,7 @@ input[type=range]::-ms-thumb {
   position: absolute;
   font-size: 1rem;
   border-radius: 50%;
-  background-color: #ee6e73;
+  background-color: #f5f5f5;
   -webkit-box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.14), 0 10px 50px 0 rgba(0, 0, 0, 0.12), 0 30px 10px -20px rgba(0, 0, 0, 0.2);
           box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.14), 0 10px 50px 0 rgba(0, 0, 0, 0.12), 0 30px 10px -20px rgba(0, 0, 0, 0.2);
   width: 100%;

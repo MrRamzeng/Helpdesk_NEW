@@ -1,14 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
-  <h5>Knowledge</h5>
-  <a href="#">1.</a><br>
-  <a href="#">2.</a><br>
-  <a href="#">3.</a><br>
-  <a href="#">4.</a><br>
-  <a href="#">.....</a>
-  <form method="POST">
-    {% csrf_token %}
-    {{form}}
-    <input type="submit" value="Log in">
-  </form>
+  <div class="box">
+    <form method="POST" style="margin-bottom: 250px;">
+      {% csrf_token %}
+      <div class="input-field">
+        {{ form.username }}
+        <label for="id_username">Фамилия</label>
+      </div>
+      <div class="input-field">
+        {{ form.password }}
+        <label for="id_password">Пароль</label>
+      </div>
+      <div class="center">
+        <button type="submit" class="btn waves-effect waves-light">Войти</button>
+      </div>
+    </form>
+  </div>
+  <style>
+    .box {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .box .input-field {
+      min-width: 420px;
+    }
+    @media (min-width: 320px) and (max-width: 601px) {
+      .box .input-field {
+        min-width: 310px;
+      }
+    }
+  </style>
 {% endblock content %}

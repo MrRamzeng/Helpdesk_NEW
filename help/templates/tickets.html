@@ -26,17 +26,17 @@
     <div class="col s3">
       <h5>Руководство пользователя</h5>
       <ul class="collapsible">
-        {% for tutorial in tutorials %}
+        {% for manual in manuals %}
           <li>
             <div class="collapsible-header">
-              <a href="{% url 'tutorial' tutorial.id %}">{{ tutorial.title }}</a>
+              <a href="{% url 'manual' manual.id %}">{{ manual.title }}</a>
             </div>
           </li>
         {% endfor %}
         {% if counter > 4 %}
           <li>
             <div class="collapsible-header">
-              <a href="{% url 'tutorials' %}">Смотреть еще...</a>
+              <a href="{% url 'manuals' %}">Смотреть еще...</a>
             </div>
           </li>
         {% endif %}
@@ -47,8 +47,22 @@
     <tr>
       <th>Кабинет</th>
       <th>Сообщение</th>
-      <th>Приоритет</th>
-      <th>Примерный срок исполнения</th>
+      <th>
+        Приоритет 
+        <i class="material-icons tiny tooltipped" 
+           data-position="bottom" data-tooltip="Заявки в статусе сегодня<br>выполняются в первую<br>очередь по мере поступления"
+           style="color: #1e88e5; cursor: default;">
+          info
+        </i>
+      </th>
+      <th>
+        Срок исполнения
+        <i class="material-icons tiny tooltipped" 
+           data-position="bottom" data-tooltip="Примерное время, в течении<br>которого заявка будет выполнена."
+           style="color: #1e88e5; cursor: default">
+          info
+        </i>
+      </th>
       <th>Статус</th>
     </tr>
     {% for ticket in tickets %}
@@ -56,7 +70,9 @@
         <td>{{ ticket.cabinet }}</td>
         <td>{{ ticket.text }}</td>
         <td>{{ ticket.priority }}</td>
-        <td>{{ ticket.completion_date }}</td>
+        {% if ticket.completion_date %}
+          <td>{{ ticket.completion_date }}</td>
+        {% endif %}
         <td>{{ ticket.status }}</td>
       </tr>
     {% endfor %}
