@@ -1,14 +1,20 @@
 from django.db.models import Model, CharField, ForeignKey, TextField, EmailField, DateField, DateTimeField, TimeField
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
+from .managers import CustomUserManager
+from django.contrib.auth.models import PermissionsMixin
+from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 
-class Account(AbstractUser):
-    username = CharField(max_length=50, verbose_name='Фамилия', unique=True)
+class Account(AbstractBaseUser, PermissionsMixin):
+    last_name = CharField(max_length=50, verbose_name='Фамилия', unique=True)
     first_name = CharField(max_length=50, verbose_name='Имя')
     email = EmailField(max_length=254, verbose_name='Адрес электронной почты')
-    USERNAME_FIELD = 'username'
+    is_staff = models.BooleanField(default=False, verbose_name='Администратор')
+    USERNAME_FIELD = 'last_name'
     REQUIRED_FIELDS = ('first_name', 'email')
+    objects = CustomUserManager()
 
     class Meta:
         verbose_name = "Учетная запись"
@@ -16,7 +22,7 @@ class Account(AbstractUser):
 
     def __str__(self):
         return (
-            str(self.username) + " " + str(self.first_name) + " " + str(self.email)
+            str(self.last_name) + " " + str(self.first_name) + " " + str(self.email)
         )
 
 class Ticket(Model):
@@ -70,6 +76,6 @@ class Manual(Model):
         verbose_name_plural = "Руководства пользователя"
 
 def user_full_name(self):
-    return '%s %s' % (self.username, self.first_name)
+    return '%s %s' % (self.last_name, self.first_name)
 
 Account.__str__ = user_full_name

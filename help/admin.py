@@ -2,6 +2,8 @@ from django.contrib import admin
 from help.models import Ticket, Account, Manual
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import auth
+from .forms import CustomUserCreationForm, CustomUserChangeForm
+from .models import Account
 
 class TicketForAdmin(admin.ModelAdmin):
     readonly_fields = ('client', 'cabinet', 'priority', 'text', 'published_date', 'published_time')
@@ -11,7 +13,25 @@ class TicketForAdmin(admin.ModelAdmin):
     list_display = ('client', 'cabinet', 'text', 'published_date', 'status')
     list_per_page = 10
 
+class CustomUserAdmin(UserAdmin):
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
+    model = Account
+    list_display = ('last_name', 'first_name', 'email', 'is_staff')
+    list_filter = ('last_name', 'first_name', 'email', 'is_staff')
+    fieldsets = (
+        (None, {'fields': ('last_name', 'first_name', 'email', 'password')}),
+    )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('last_name', 'first_name', 'email', 'password1', 'password2', 'is_staff')}
+        ),
+    )
+    search_fields = ('last_name', 'first_name', 'email')
+    ordering = ('last_name', 'first_name', 'email')
+
 admin.site.unregister(auth.models.Group)
 admin.site.register(Ticket, TicketForAdmin)
-admin.site.register(Account, UserAdmin)
+admin.site.register(Account, CustomUserAdmin)
 admin.site.register(Manual)
