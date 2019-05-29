@@ -70,9 +70,11 @@
         <td>{{ ticket.cabinet }}</td>
         <td>{{ ticket.text }}</td>
         <td>{{ ticket.priority }}</td>
-        {% if ticket.completion_date %}
-          <td>{{ ticket.completion_date }}</td>
-        {% endif %}
+        <td>
+          {% if ticket.completion_date %}
+            {{ ticket.completion_date }}
+          {% endif %}
+        </td>
         <td>{{ ticket.status }}</td>
       </tr>
     {% endfor %}

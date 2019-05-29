@@ -1,0 +1,12 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+{% block breadcrumbs %}
+  <a href="{% url 'admin:index' %}" class="breadcrumb">{% trans 'Home' %}</a>
+  <i class="breadcrumb"></i> {{ title }}
+{% endblock %}
+  <p>
+    {% blocktrans %}Something's wrong with your database installation. Make sure the appropriate database tables have been created, and make sure the database is readable by the appropriate user.{% endblocktrans %}
+  </p>
+{% endblock %}

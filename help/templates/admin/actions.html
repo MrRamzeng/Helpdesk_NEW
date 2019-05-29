@@ -1,0 +1,26 @@
+{% load i18n %}
+<div class="actions">
+  {% block actions %}
+    <div class="row">
+      <div class="col s10">
+        {% block actions-form %}
+          {% for field in action_form %}
+            {% if field.label %}
+              {{ field }}
+            {% endif %}
+          {% endfor %}
+        {% endblock %}
+      </div>
+      <div class="col s2">
+        {% block actions-submit %}
+          <button type="submit" class="btn waves-effect waves-light" 
+                  title="{% trans 'Run the selected action' %}" 
+                  class="btn waves-effect waves-light"
+                  name="index" value="{{ action_index|default:0 }}">
+            {% trans "Go" %}
+          </button>
+        {% endblock %}
+      </div>
+    </div>
+  {% endblock %}
+</div>

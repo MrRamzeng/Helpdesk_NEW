@@ -1,0 +1,27 @@
+{% block search %}
+  {% load i18n static %}
+  {% if cl.search_fields %}
+    <li>
+      <form id="changelist-search" method="get">
+        <div class="input-field">
+          <input style="margin-left: 0;" type="text" size="40" 
+                 name="{{ search_var }}" value="{{ cl.query }}" id="searchbar"
+                 placeholder="Поиск">
+          {% for pair in cl.params.items %}
+            {% if pair.0 != search_var %}
+              <input type="hidden" name="{{ pair.0 }}" value="{{ pair.1 }}">
+            {% endif %}
+          {% endfor %}
+        </div>
+      </li>
+      <li style="background-color: white;">
+        <button type="submit" class="btn waves-effect waves-light prefix" 
+                style="box-shadow: none; padding: 0;">
+          <i class="material-icons" style="height: 36px; line-height: 36px; background-color: white;">
+            search
+          </i>
+        </button>
+      </form>
+    </li>
+  {% endif %}
+{% endblock %}

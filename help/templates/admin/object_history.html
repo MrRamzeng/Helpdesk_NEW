@@ -1,0 +1,49 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls %}
+{% block content %}
+  {% block breadcrumbs %}
+    <a href="{% url 'admin:index' %}" class="breadcrumb">
+      {% trans 'Home' %}
+    </a>
+    <a href="{% url opts|admin_urlname:'changelist' %}" class="breadcrumb">
+      {{ module_name }}
+    </a>
+    <a href="{% url opts|admin_urlname:'change' object.pk|admin_urlquote %}" 
+       class="breadcrumb" style="pointer-events: none; color: #555;">
+      ({% trans 'History' %}) {{ object|truncatewords:"18" }}
+    </a>
+    {% block object-tools-items %} 
+    {% endblock object-tools-items %}
+  {% endblock %}
+  <div id="content-main">
+    <div>
+      {% if action_list %}
+        <table id="change-history">
+          <tr>
+            <th scope="col">{% trans 'Date/time' %}</th>
+            <th scope="col">{% trans 'User' %}</th>
+            <th scope="col">{% trans 'Action' %}</th>
+          </tr>
+          {% for action in action_list %}
+            <tr>
+              <th scope="row">
+                {{ action.action_time|date:"DATETIME_FORMAT" }}
+              </th>
+              <td>
+                {{ action.user.get_username }}
+                {% if action.user.get_full_name %} 
+                  ({{ action.user.get_full_name }})
+                {% endif %}
+              </td>
+              <td>{{ action.get_change_message }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      {% else %}
+        <p>
+          {% blocktrans %}This object doesn't have a change history. It probably wasn't added via this admin site.{% endblocktrans %}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

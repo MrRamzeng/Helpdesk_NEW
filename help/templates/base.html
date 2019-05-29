@@ -13,6 +13,7 @@
         crossorigin="anonymous"></script>
   <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/materialize.jquery.js' %}"></script>
+  {% block extrahead %}{% endblock %}
   <title>HelpDesk</title>
 </head>
 <body>
@@ -20,6 +21,7 @@
     <div class="nav-wrapper container">
       <a href="#" class="brand-logo">HelpDesk</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
+        {% block search %}{% endblock %}
         {% if request.user.is_authenticated %}
           <li><a href="{% url 'logout' %}">Выйти</a></li>
         {% endif %}

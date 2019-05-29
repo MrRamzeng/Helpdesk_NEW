@@ -4,20 +4,19 @@ from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
 
 class Account(AbstractUser):
-    username = CharField(max_length=50, verbose_name='Логин')
-    last_name = CharField(max_length=50, verbose_name='Фамилия', unique=True)
+    username = CharField(max_length=50, verbose_name='Фамилия', unique=True)
     first_name = CharField(max_length=50, verbose_name='Имя')
     email = EmailField(max_length=254, verbose_name='Адрес электронной почты')
-    USERNAME_FIELD = 'last_name'
-    REQUIRED_FIELDS = ('username', 'email')
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ('first_name', 'email')
 
     class Meta:
-        verbose_name = "Пользователь"
-        verbose_name_plural = "Пользователи"
+        verbose_name = "Учетная запись"
+        verbose_name_plural = "Учетные записи"
 
     def __str__(self):
         return (
-            str(self.last_name) + " " + str(self.first_name) + " " + str(self.email)
+            str(self.username) + " " + str(self.first_name) + " " + str(self.email)
         )
 
 class Ticket(Model):
@@ -71,6 +70,6 @@ class Manual(Model):
         verbose_name_plural = "Руководства пользователя"
 
 def user_full_name(self):
-    return '%s %s' % (self.last_name, self.first_name)
+    return '%s %s' % (self.username, self.first_name)
 
 Account.__str__ = user_full_name
