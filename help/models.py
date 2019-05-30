@@ -42,7 +42,7 @@ class Ticket(Model):
     text = TextField(verbose_name='сообщение')
     published_date = DateField(auto_now_add=True, verbose_name='Дата публикации')
     published_time = TimeField(auto_now_add=True, verbose_name='Время публикации')
-    comment = CharField(max_length=200, verbose_name='Комментарий')
+    comment = CharField(max_length=200, verbose_name='Комментарий', blank=True, null=True)
     REGISTER = 'Зарегистрирована'
     PERFORMED = 'Исполняется'
     CANCEL = 'Отменена'

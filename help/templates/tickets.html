@@ -64,6 +64,7 @@
         </i>
       </th>
       <th>Статус</th>
+      <th>Комментарий</th>
     </tr>
     {% for ticket in tickets %}
       <tr id='ticket'>
@@ -76,6 +77,7 @@
           {% endif %}
         </td>
         <td>{{ ticket.status }}</td>
+        <td>{{ ticket.comment }}</td>
       </tr>
     {% endfor %}
   </table>
