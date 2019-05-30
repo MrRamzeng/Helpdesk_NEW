@@ -3,7 +3,6 @@ from help.models import Ticket, Account, Manual
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import auth
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import Account
 
 class TicketForAdmin(admin.ModelAdmin):
     readonly_fields = ('client', 'cabinet', 'priority', 'text', 'published_date', 'published_time')
@@ -29,7 +28,8 @@ class CustomUserAdmin(UserAdmin):
         ),
     )
     search_fields = ('last_name', 'first_name', 'email')
-    ordering = ('last_name', 'first_name', 'email')
+    ordering = ('is_staff', 'last_name')
+    list_per_page = 10
 
 admin.site.unregister(auth.models.Group)
 admin.site.register(Ticket, TicketForAdmin)
