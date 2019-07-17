@@ -4,9 +4,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = '8qv#3dgy^9m%o)=2sikp$ld1s84r(yq^1@y^f(^3r1if=@39$n'
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['helpdesktop.pythonanywhere.com']
 
 AUTH_USER_MODEL = 'help.Account'
 
@@ -89,9 +89,9 @@ USE_TZ = False
 
 TIME_INPUT_FORMATS = ['%H:%M']
 
-DATE_INPUT_FORMATS = ['%d.%m.%Y']
+DATE_INPUT_FORMATS = ['%d.%M.%y']
 
-DATETIME_FORMAT = '%d.%m.%Y %H:%M'
+DATETIME_FORMAT = '%d.%M.%y %H:%M'
 
 CKEDITOR_CONFIGS = {
     'default': {
@@ -104,26 +104,26 @@ CKEDITOR_CONFIGS = {
                 '-',
                 'TextColor',
                 '-',
-                'Bold', 
+                'Bold',
                 'Italic',
                 'Underline',
                 'CodeSnippet',
                 '-',
-                'NumberedList', 
+                'NumberedList',
                 'BulletedList',
                 '-',
                 "Indent",
                 "Outdent",
                 '=',
-                'JustifyLeft', 
-                'JustifyCenter', 
-                'JustifyRight', 
-                'JustifyBlock', 
+                'JustifyLeft',
+                'JustifyCenter',
+                'JustifyRight',
+                'JustifyBlock',
                 '-',
-                'Image', 
+                'Image',
                 'Table',
                 'SpecialChar',
-                '-', 
+                '-',
                 'Preview']],
         'removePlugins': 'stylesheetparser',
         'extraPlugins': 'codesnippet',

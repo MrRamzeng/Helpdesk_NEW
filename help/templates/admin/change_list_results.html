@@ -25,14 +25,14 @@
               {% if header.sort_priority > 0 %}
                 {% if num_sorted_fields > 1 %}
                   <div class="col s2">
-                    <span class="sortpriority" 
+                    <span class="sortpriority"
                           title="{% blocktrans with priority_number=header.sort_priority %}Sorting priority: {{ priority_number }}{% endblocktrans %}">
                       {{ header.sort_priority }}
                     </span>
                   </div>
                 {% endif %}
                 <div class="col s2">
-                  <a class="material-icons" href="{{ header.url_remove }}" 
+                  <a class="material-icons" href="{{ header.url_remove }}"
                     title="{% trans "Remove from sorting" %}">
                     close
                   </a>

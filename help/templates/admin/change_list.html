@@ -36,12 +36,12 @@
       </p>
       {{ cl.formset.non_form_errors }}
     {% endif %}
-    <div class="col s10">
+    <div class="col s10" id="ticket-table">
       <form id="changelist-form" method="post"
-            {% if cl.formset and cl.formset.is_multipart %} 
-              enctype="multipart/form-data"
-            {% endif %} 
-            novalidate>
+        {% if cl.formset and cl.formset.is_multipart %}
+          enctype="multipart/form-data"
+        {% endif %}
+        novalidate>
         {% csrf_token %}
         {% if cl.formset %}
           <div>{{ cl.formset.management_form }}</div>
@@ -68,8 +68,8 @@
 
       {% block filters %}
         {% if cl.has_filters %}
-          <div id="changelist-filter">
-            <h5>{% trans 'Filter' %}</h5>
+          <div class="card" style="margin-top: 0; padding: 0 10px" id="changelist-filter">
+            <h5 style="margin-top: 0">{% trans 'Filter' %}</h5>
             {% for spec in cl.filter_specs %}
               {% admin_list_filter cl spec %}
             {% endfor %}
@@ -78,4 +78,18 @@
       {% endblock %}
     </div>
   </div>
+  <script>
+    function show(){
+      $.ajax({
+        cache: false,
+        success: function(data){
+          $('#result_list').html(jQuery(data).find('#result_list').html());
+        }
+      })
+    }
+    $(document).ready(function(){
+      show();
+      setInterval('show()', 5000);
+    })
+  </script>
 {% endblock %}

@@ -12,3 +12,7 @@ $(document).ready(function(){
 });
 // dropdown
 $('.dropdown-trigger').dropdown()
+
+$(document).ready(function(){
+    $('.modal').modal();
+});

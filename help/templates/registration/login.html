@@ -10,6 +10,9 @@
       <div class="input-field">
         {{ form.password }}
         <label for="id_password">Пароль</label>
+        {% if form.non_field_errors %}
+          <span class="helper-text">{{ form.non_field_errors }}</span>
+        {% endif %}
       </div>
       <div class="center">
         <button type="submit" class="btn waves-effect waves-light">Войти</button>
@@ -17,6 +20,9 @@
     </form>
   </div>
   <style>
+    .helper-text {
+      color: red !important;
+    }
     .box {
       height: 100vh;
       display: flex;

@@ -4,8 +4,6 @@ from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
 from .managers import CustomUserManager
 from django.contrib.auth.models import PermissionsMixin
-from django.utils.translation import gettext_lazy as _
-from django.utils import timezone
 
 class Account(AbstractBaseUser, PermissionsMixin):
     last_name = CharField(max_length=50, verbose_name='Фамилия', unique=True)
@@ -53,7 +51,7 @@ class Ticket(Model):
         (CANCEL, 'Отменена'),
         (DONE, 'Исполнена')
     )
-    completion_date = DateTimeField(verbose_name='Срок исполнения заявки', null=True)
+    completion_date = DateTimeField(verbose_name='Срок исполнения заявки', blank=True, null=True)
     status = CharField(max_length=50, choices = STATUS, default=REGISTER, verbose_name='Статус')
 
     class Meta:
@@ -62,7 +60,7 @@ class Ticket(Model):
 
     def __str__(self):
         return (
-            str(self.published_date.strftime('%d.%m.%Y')) +
+            str(self.published_date.strftime('%d.%M.%y')) +
             " " + str(self.published_time.strftime('%H:%M')) +
             " " + str(self.priority) + " " + str(self.status)
         )

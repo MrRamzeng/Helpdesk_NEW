@@ -9,8 +9,9 @@ class TicketForAdmin(admin.ModelAdmin):
     ordering = ('-status', 'priority', 'published_time')
     search_fields = ('priority', 'cabinet', 'client__first_name')
     list_filter = ('priority', 'status', 'published_date')
-    list_display = ('client', 'cabinet', 'text', 'published_date', 'status')
+    list_display = ('client', 'cabinet', 'text', 'published_date', 'completion_date', 'status')
     list_per_page = 10
+    list_editable = ('status',)
 
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
@@ -35,3 +36,4 @@ admin.site.unregister(auth.models.Group)
 admin.site.register(Ticket, TicketForAdmin)
 admin.site.register(Account, CustomUserAdmin)
 admin.site.register(Manual)
+admin.site.disable_action('delete_selected')

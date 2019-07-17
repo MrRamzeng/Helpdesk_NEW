@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% block content %}
   <div class="row">
     <div class="col s9">
-      <form method="post">
+      <form method="post" id="ticket-form">
         {% csrf_token %}
         <div class="row">
           <div class="col s8" style="margin-top: 8px;">
@@ -43,42 +43,76 @@
       </ul>
     </div>
   </div>
-  <table>
-    <tr>
-      <th>Кабинет</th>
-      <th>Сообщение</th>
-      <th>
-        Приоритет 
-        <i class="material-icons tiny tooltipped" 
-           data-position="bottom" data-tooltip="Заявки в статусе сегодня<br>выполняются в первую<br>очередь по мере поступления"
-           style="color: #1e88e5; cursor: default;">
-          info
-        </i>
-      </th>
-      <th>
-        Срок исполнения
-        <i class="material-icons tiny tooltipped" 
-           data-position="bottom" data-tooltip="Примерное время, в течении<br>которого заявка будет выполнена."
-           style="color: #1e88e5; cursor: default">
-          info
-        </i>
-      </th>
-      <th>Статус</th>
-      <th>Комментарий</th>
-    </tr>
-    {% for ticket in tickets %}
-      <tr id='ticket'>
-        <td>{{ ticket.cabinet }}</td>
-        <td>{{ ticket.text }}</td>
-        <td>{{ ticket.priority }}</td>
-        <td>
-          {% if ticket.completion_date %}
-            {{ ticket.completion_date }}
-          {% endif %}
-        </td>
-        <td>{{ ticket.status }}</td>
-        <td>{{ ticket.comment }}</td>
+  {% if tickets %}
+    <table id="ticket-table">
+      <tr>
+        <th>Кабинет</th>
+        <th>Сообщение</th>
+        <th>
+          Приоритет
+          <i class="material-icons tiny tooltipped"
+              data-position="bottom" data-tooltip="Заявки в статусе сегодня<br>выполняются в первую<br>очередь по мере поступления"
+              style="color: #1e88e5; cursor: default;">
+            info
+          </i>
+        </th>
+        <th>
+          Срок исполнения
+          <i class="material-icons tiny tooltipped"
+              data-position="bottom" data-tooltip="Примерное время, в течении<br>которого заявка будет выполнена."
+              style="color: #1e88e5; cursor: default">
+            info
+          </i>
+        </th>
+        <th>Статус</th>
+        <th>Комментарий</th>
       </tr>
-    {% endfor %}
-  </table>
-{% endblock content %}
+      {% for ticket in tickets %}
+        <tr id='ticket'>
+          <td>{{ ticket.cabinet }}</td>
+          <td>{{ ticket.text }}</td>
+          <td>{{ ticket.priority }}</td>
+          <td>
+            {% if ticket.completion_date %}
+              {{ ticket.completion_date }}
+            {% endif %}
+          </td>
+          <td>{{ ticket.status }}</td>
+          <td>
+            {% if ticket.comment %}
+              {{ ticket.comment }}
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+  <script>
+    $('#ticket-form').submit(function(e){
+      e.preventDefault();
+      var data = $(this).serialize();
+      $.ajax({
+        type: "POST",
+        cache: false,
+        data: data,
+        success: function(result){
+          $('#ticket-table').html(jQuery(result).find('#ticket-table').html());
+          $('#id_cabinet').val('');
+          $('#id_text').val('');
+        }
+      });
+    });
+    function show(){
+      $.ajax({
+        cache: false,
+        success: function(data){
+          $('#ticket-table').html(jQuery(data).find('#ticket-table').html());
+        }
+      })
+    }
+    $(document).ready(function(){
+      show();
+      setInterval('show()', 5000);
+    })
+  </script>
+{% endblock %}

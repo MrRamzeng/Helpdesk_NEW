@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from help.models import Ticket, Manual
 from help.forms import CreateTicket
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
 
 @login_required(login_url='login')
 def ticket(request):
@@ -13,7 +13,10 @@ def ticket(request):
         counter = None
         if Manual.objects.count() > 4:
             counter = Manual.objects.count()
-        if request.method == 'POST':
+        tickets = Ticket.objects.filter(
+            client=request.user
+        ).order_by('priority', 'published_date')
+        if request.method == 'POST' and request.is_ajax:
             form = CreateTicket(request.POST)
             if form.is_valid():
                 account = request.user
@@ -26,21 +29,17 @@ def ticket(request):
                     priority=priority,
                     cabinet=cabinet
                 )
-                return redirect('tickets')
         else:
             form = CreateTicket()
-        tickets = Ticket.objects.filter(
-            client=request.user
-        ).order_by('priority', 'published_date')
         Ticket.objects.filter(
-            status='Исполнена', 
-            published_date=datetime.today().date() - timedelta(days=7)
+            status='Исполнена',
+            published_date=datetime.today().date() - timedelta(days=1)
         ).delete()
         return render(
-            request, 'tickets.html', 
+            request, 'tickets.html',
             {'manuals': manuals, 'counter': counter, 'form': form, 'tickets': tickets}
         )
-    
+
 def manuals(request):
     manuals = Manual.objects.all()
     return render(request, 'manuals.html', {'manuals': manuals})

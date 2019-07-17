@@ -1,7 +1,6 @@
 from django import forms
 from help.models import Ticket, Account
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from help.models import Account
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm):
